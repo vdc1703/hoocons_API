@@ -60,6 +60,7 @@ class Account(CachingMixin, models.Model):
 
     # Location attributes, foreignkey is many-to-one relationship
     location = models.ForeignKey(Location, blank=True, null=True, related_name="location")
+
     is_sharing_location = models.BooleanField(default=False)
 
     # User level, for future update

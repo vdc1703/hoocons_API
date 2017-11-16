@@ -41,7 +41,6 @@ class FriendRequestView(viewsets.ModelViewSet):
         requests = FriendshipRequest.objects.filter(Q(receiver=_current_user)).order_by("-request_made_at")
 
         page = self.paginate_queryset(requests)
-        print(page)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)

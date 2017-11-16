@@ -59,9 +59,13 @@ class UserView(viewsets.ModelViewSet):
 		_current_user.last_action = now()
 		_current_user.save()
 
+		print("testing", _current_user.location)
+
 		# get the account object, with the primary key is None
 		# from the models.py
 		_user = get_object_or_404(Account, pk=pk)
+
+
 
 		# to make sure the user who view the profile is not in block list and the user have to be active
 		if self.is_blocked(_current_user, _user):
@@ -228,6 +232,8 @@ class UserView(viewsets.ModelViewSet):
 
 				_target_user.save()
 				return Response({"message": "success"}, status=status.HTTP_200_OK)
+			except KeyError:
+				return Response({"error": "Missing gender"}, status=status.HTTP_204_NO_CONTENT)
 			except IntegrityError as e:
 				return Response({"error": str(e)}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 			except AssertionError as e:
