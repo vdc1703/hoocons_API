@@ -99,6 +99,15 @@ def __resolve_user(token):
     serializer.is_valid(raise_exception=True)
     return serializer.object.get('user')
 
+
+def is_valid_coordinate(longitude, latitude):
+    if longitude < -180 or longitude > 180:
+        return False
+    if latitude < -90 or latitude > 90:
+        return False
+    return True
+
+
 # Default avatar image url.
 def get_default_avatar_url():
     return 'http://res.cloudinary.com/dumfykuvl/image/upload/v1493749974/images_lm0sjf.jpg'

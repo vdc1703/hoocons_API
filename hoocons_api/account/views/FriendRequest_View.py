@@ -1,3 +1,5 @@
+# use for deny or accept friend request
+
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.utils.timezone import now
@@ -28,23 +30,8 @@ class FriendRequestView(viewsets.ModelViewSet):
     queryset = FriendshipRequest.objects.all()
     serializer_class = FriendRequestSerializer
 
-    # @list_route(methods=['get'])
-    # def semi(self, request, *args, **kwargs):
-    #     _current_user = request.user.userinfo
-    #     _current_user.last_action_at = now()
-    #     _current_user.save()
-    #
-    #     requests = FriendshipRequest.objects.filter(Q(receiver=_current_user)) \
-    #         .order_by("-request_made_at")
-    #     page = self.paginate_queryset(requests)
-    #     if page is not None:
-    #         serializer = self.get_serializer(page, many=True)
-    #         return self.get_paginated_response(serializer.data)
-    #
-    #     serializer = self.get_serializer(requests, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-
     # GET API for
+    # View who request friend
     def list(self, request, *args, **kwargs):
         _current_user = request.user.account
         _current_user.last_action_at = now()

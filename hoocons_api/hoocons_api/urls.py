@@ -24,7 +24,7 @@ from account.views.FriendRequest_View import FriendRequestView
 router = DefaultRouter()
 router.register(r'register', RegisterView, base_name='register')
 router.register(r'login', LoginView, base_name='auth')
-router.register(r'view', UserView, base_name='view')
+router.register(r'user', UserView, base_name='user')
 router.register(r'friend/request', FriendRequestView, base_name='fr_request')
 
 urlpatterns = router.urls

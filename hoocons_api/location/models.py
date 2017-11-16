@@ -3,6 +3,8 @@ from django.contrib.gis.db import models
 # from setting, in CACHES
 from caching.base import CachingMixin
 from django.contrib.gis.geos import Point
+from django.contrib.gis.db import models
+from django.contrib.postgres.fields import *
 
 # Create your models here.
 from django.utils.encoding import python_2_unicode_compatible

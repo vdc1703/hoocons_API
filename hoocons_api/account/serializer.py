@@ -113,7 +113,7 @@ class SimpleUserInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ("user", "display_name", "nickname", "profile_url", "wallpaper_url", "last_action_at",
+        fields = ("user", "display_name", "nickname", "avatar_url", "wallpaper_url", "last_action",
 "location", "is_sharing_location", 'is_friend', 'friend_requested')
 #----------------------------------------------------
 # END Simple User information JSON

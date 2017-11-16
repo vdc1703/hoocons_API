@@ -39,7 +39,7 @@ class LoginView(viewsets.ViewSet):
                 # It takes credentials as keyword arguments, username and password for the default case,
                 # checks them against each authentication backend,
                 # and returns a User object if the credentials are valid for a backend.
-                # If the credentials aren’t valid for any backend or
+                # If the credentials are not valid for any backend or
                 # if a backend raises PermissionDenied, it returns None
 
                 _user = authenticate(username=_username, password=_pwd)
@@ -47,7 +47,7 @@ class LoginView(viewsets.ViewSet):
                 if _user is not None:
                     if _user.is_active:
 
-                        # query all information of user id from auth_user table, inlucde token columns
+                        # query all information of user id from auth_user table, include token columns
                         payload = jwt_payload_handler(_user)
 
                         # get the token from payload
@@ -61,9 +61,8 @@ class LoginView(viewsets.ViewSet):
 
                         # return token with user_id
                         # {"token":"...", "user_id": id}
-                        return jwt_response_special_handling(
-                            Response(response_data, status.HTTP_201_CREATED), user=_user
-                        )
+                        return jwt_response_special_handling(Response(response_data,
+                                                                      status.HTTP_201_CREATED), user=_user)
                     else:
                         return Response("This account is not active", status=status.HTTP_423_LOCKED)
                 else:
