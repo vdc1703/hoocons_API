@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.db.models import Q
 
@@ -6,13 +5,11 @@ from django.db.models import Q
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework import viewsets, status
 from rest_framework.parsers import JSONParser
-from rest_framework_jwt.settings import api_settings
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 
 from django.utils.timezone import now
 from django.shortcuts import get_object_or_404
-
 from account.models import Account, RelationShip
 
 from utils.utilities import IsAdminOrProfileOwner
@@ -21,11 +18,9 @@ from account.serializer import AccountSerializer
 
 # Create your views here.
 
-#Specify a custom function to generate the token payload
-# jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-# jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-# jwt_response_payload_handler = api_settings.JWT_RESPONSE_PAYLOAD_HANDLER
-
+#----------------------------------------------------
+# UserView API, return User information
+#----------------------------------------------------
 class UserView(viewsets.ModelViewSet):
 	authentication_classes = (JSONWebTokenAuthentication,)
 	pagination_class = PageNumberPagination
@@ -46,7 +41,8 @@ class UserView(viewsets.ModelViewSet):
 
 	# PK is primary key, view user profile,
 	def retrieve(self, request, pk=None, *args, **kwargs):
-		# cache the account object from request user
+		# cache the account object from request user from database.
+		# account is a table name in the database
 		_current_user = self.request.user.account
 
 		# save the time this user do this action
@@ -54,22 +50,35 @@ class UserView(viewsets.ModelViewSet):
 		_current_user.save()
 
 		# get the account object, with the primary key is None
+		# from the models.py
 		_user = get_object_or_404(Account, pk=pk)
 
 		# to make sure the user who view the profile is not in block list and the user have to be active
 		if self.is_blocked(_current_user, _user):
 			return Response({"message": "user does not exists or inactive"}, status=status.HTTP_404_NOT_FOUND)
+		# check in auth_user table is the user is_active or not
 		elif _user.user.is_active is False:
 			return Response({"message": "user does not exists or inactive"}, status=status.HTTP_404_NOT_FOUND)
 
+		# Create a JSON format from the models.py
 		serializer = self.get_serializer(_user, many=False, context={"request": request})
-
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
-
+	# function use to check if the user is in block list or not from the Relationship object
 	def is_blocked(self, request_user, user):
 		if RelationShip.objects.filter(Q(from_user=request_user, to_user=user) |
 										   Q(from_user=user, to_user=request_user),
 										   status=app_constant.R_BLOCKED).exists():
 			return True
 		return False
+
+#----------------------------------------------------
+# END UserView API
+#----------------------------------------------------
+
+
+#----------------------------------------------------
+# Update API for user after register
+#----------------------------------------------------
+def update(self, request, pk=None, *args, **kwargs):
+	

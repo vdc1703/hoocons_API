@@ -3,9 +3,10 @@ from location.models import Location
 
 
 class LocationSerializer(serializers.ModelSerializer):
-	# Default coordinate
+	# call the function coordinate
 	coordinate = serializers.SerializerMethodField("get_coordinate_data")
 
+	#
 	def get_coordinate_data(self, location):
 		return {
 			"srid": location.coordinate.srid,

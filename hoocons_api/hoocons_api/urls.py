@@ -19,11 +19,13 @@ from rest_framework.routers import DefaultRouter
 from account.views.Register_View import RegisterView
 from account.views.Login_View import LoginView
 from account.views.User_View import UserView
+from account.views.FriendRequest_View import FriendRequestView
 
 router = DefaultRouter()
 router.register(r'register', RegisterView, base_name='register')
 router.register(r'login', LoginView, base_name='auth')
 router.register(r'view', UserView, base_name='view')
+router.register(r'friend/request', FriendRequestView, base_name='fr_request')
 
 urlpatterns = router.urls
 
