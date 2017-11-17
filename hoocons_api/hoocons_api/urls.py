@@ -27,9 +27,7 @@ router.register(r'login', LoginView, base_name='auth')
 router.register(r'user', UserView, base_name='user')
 router.register(r'friend/request', FriendRequestView, base_name='fr_request')
 
-urlpatterns = router.urls
-
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^/', admin.site.urls),
     url(r'^api/', include(router.urls)),
 ]

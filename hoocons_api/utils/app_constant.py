@@ -10,7 +10,7 @@ R_FOLLOWED = "Followed"                  # Followed user
 R_FRIEND_FOLLOWED = "Friend_Followed"    # Best friend, send notif when friend posts
 R_FRIEND_IGNORED = "Friend_Ignored"      # Do not show anything of friend's activity
 R_BLOCKED = "Blocked"                    # Block user (other user won't see anything from me)
-R_IGNORED = "Ignored" 					# Ignore user (other user might see something from me)
+R_IGNORED = "Ignored" 					 # Ignore user (other user might see something from me)
 
 RELATIONSHIP = (
     (R_FRIEND, "FRIEND"),
@@ -19,4 +19,12 @@ RELATIONSHIP = (
     (R_FRIEND_IGNORED, "FRIEND_FOLLOWED"),
     (R_BLOCKED, "BLOCKED"),
     (R_IGNORED, "IGNORED"),
+)
+
+CHATROOM_SINGLE = "csingle"
+CHATROOM_GROUP = "cgroup"
+
+CHATROOM = (
+    (CHATROOM_SINGLE, "ROOM_SINGLE"),
+    (CHATROOM_GROUP, "ROOM_GROUP")
 )
