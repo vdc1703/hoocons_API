@@ -85,8 +85,21 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+
 AUTHENTICATION_BACKENDS = {
     'django.contrib.auth.backends.ModelBackend',
+}
+
+
+PUSH_NOTIFICATIONS_SETTINGS = {
+    "FCM_API_KEY": "AIzaSyDmVu0W-5Z7Zi6efS6zLDhT95gQm18YPZU",
+    "GCM_API_KEY": "AIzaSyDmVu0W-5Z7Zi6efS6zLDhT95gQm18YPZU",
+    "APNS_CERTIFICATE": "/path/to/your/certificate.pem",
+    "APNS_TOPIC": "com.example.push_test",
+    "WNS_PACKAGE_SECURITY_ID": "[your package security id, e.g: 'ms-app://e-3-4-6234...']",
+    "WNS_SECRET_KEY": SECRET_KEY,
+    "GCM_ERROR_TIMEOUT": 100,
+    "FCM_ERROR_TIMEOUT": 100,
 }
 
 TEMPLATES = [
@@ -118,23 +131,30 @@ CACHES = {
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-    # for Django >= 1.9, use django.db.backends.postgresql
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'django_db',
-        'USER': 'django',
-        'PASSWORD': 'django',
-        'HOST': 'localhost',
-        'PORT': '5432',
-		'POSTGIS_TEMPLATE': 'template_postgis2.3',
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+            'POSTGIS_TEMPLATE': 'template_postgis2.3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'hoocons',
+            'USER': 'hungnguyen',
+            'PASSWORD': 'hoocons',
+            'HOST': 'localhost',
+            'PORT': '5432',
+            'POSTGIS_TEMPLATE': 'template_postgis2.3',
+        }
+    }
 
 
 # Password validation
@@ -156,23 +176,33 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+DEFAULT_CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        'TIMEOUT': 60
+    },
+    'resources': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        'TIMEOUT': 60
+    }
+}
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
 STATIC_URL = '/static/'
 
 
