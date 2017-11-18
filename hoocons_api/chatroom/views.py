@@ -7,12 +7,14 @@ from rest_framework import viewsets, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import JSONParser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from account.models import Account
 from chatroom.models import ChatRoom
 from chatroom.serializers import ChatRoomSerializer
+from permissions.permissions import IsChatroomPartial
 
 
 class ChatRoomViewSet(viewsets.ModelViewSet):
@@ -23,6 +25,16 @@ class ChatRoomViewSet(viewsets.ModelViewSet):
 
     queryset = ChatRoom.objects.all()
     serializer_class = ChatRoomSerializer
+
+    def get_permissions(self):
+        if self.request.method == "PUT" \
+                or self.request.method == "PATCH" \
+                or self.request.method == "DELETE":
+            self.permission_classes = [IsAuthenticated, IsChatroomPartial]
+        else:
+            self.permission_classes = [IsAuthenticated, ]
+
+        return super(ChatRoomViewSet, self).get_permissions()
 
     def list(self, request, *args, **kwargs):
         try:
