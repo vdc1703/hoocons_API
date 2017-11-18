@@ -45,8 +45,8 @@ INSTALLED_APPS = [
 
     # # Hoocons Applications API
     'account',
+    'chatroom',
 	'location',
-
 ]
 
 MIDDLEWARE = [
