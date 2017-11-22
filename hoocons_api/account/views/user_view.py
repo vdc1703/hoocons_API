@@ -17,8 +17,9 @@ from django.utils.timezone import now
 from django.shortcuts import get_object_or_404
 from account.models import Account, RelationShip, FriendshipRequest
 from location.models import Location
+from permissions.permissions import IsAdminOrProfileOwner
 
-from utils.utilities import IsAdminOrProfileOwner, is_valid_coordinate
+from utils.utilities import is_valid_coordinate
 from utils import app_constant
 from account.serializer import AccountSerializer
 

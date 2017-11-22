@@ -45,6 +45,7 @@ class PostView(viewsets.ModelViewSet):
             title = request.data['title']
             text_content = request.data['text_content']
 
+
             post = Post(author=_current_user, title=title, text_content=text_content)
             return Response(PostSerializer(post, many=False, context={"request": request}).data, status=200)
         except KeyError:

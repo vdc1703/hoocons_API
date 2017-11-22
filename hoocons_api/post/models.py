@@ -19,7 +19,7 @@ class Post(models.Model):
 	text_content = models.TextField(blank=True, null=True)
 
 	# media --- later
-	# media = models.ManyToManyField(media, blank=True)
+	# media = models.ManyToManyField(Media, blank=True)
 
 	# location posted/tagged
 	posted_at = models.ForeignKey(Location, blank=True, null=True, related_name="posted_location",on_delete=models.CASCADE)
