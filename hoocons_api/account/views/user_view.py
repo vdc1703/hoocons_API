@@ -300,7 +300,6 @@ class UserView(viewsets.ModelViewSet):
 			# 	return Response({"message": "success"}, status=status.HTTP_200_OK)
 			# except FriendshipRequest.DoesNotExist:
 			# 	pass
-
 			# *************************
 
 			# If this request is already made before
