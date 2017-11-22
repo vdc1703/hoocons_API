@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'account',
     'chatroom',
 	'location',
+    'post',
 ]
 
 MIDDLEWARE = [

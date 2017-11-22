@@ -20,6 +20,7 @@ from account.views.Register_View import RegisterView
 from account.views.Login_View import LoginView
 from account.views.User_View import UserView
 from account.views.friend_request_view import FriendRequestView
+from post.views import PostView
 
 
 router = DefaultRouter()
@@ -27,6 +28,7 @@ router.register(r'register', RegisterView, base_name='register')
 router.register(r'login', LoginView, base_name='auth')
 router.register(r'user', UserView, base_name='user')
 router.register(r'friend/request', FriendRequestView, base_name='fr_request')
+router.register(r'post', PostView, base_name='post')
 
 urlpatterns = [
     url(r'^/', admin.site.urls),
