@@ -143,13 +143,25 @@ if 'RDS_DB_NAME' in os.environ:
             'POSTGIS_TEMPLATE': 'template_postgis2.3',
         }
     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#             'NAME': 'hoocons',
+#             'USER': 'hungnguyen',
+#             'PASSWORD': 'hoocons',
+#             'HOST': 'localhost',
+#             'PORT': '5432',
+#             'POSTGIS_TEMPLATE': 'template_postgis2.3',
+#         }
+#     }
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'NAME': 'hoocons',
-            'USER': 'hungnguyen',
-            'PASSWORD': 'hoocons',
+            'NAME': 'django_db',
+            'USER': 'django',
+            'PASSWORD': 'django',
             'HOST': 'localhost',
             'PORT': '5432',
             'POSTGIS_TEMPLATE': 'template_postgis2.3',

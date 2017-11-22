@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
-from account.views.register_view import RegisterView
-from account.views.login_view import LoginView
-from account.views.user_view import UserView
+from account.views.Register_View import RegisterView
+from account.views.Login_View import LoginView
+from account.views.User_View import UserView
 from account.views.friend_request_view import FriendRequestView
+
 
 router = DefaultRouter()
 router.register(r'register', RegisterView, base_name='register')

@@ -31,7 +31,7 @@ class Account(CachingMixin, models.Model):
     # 2 users can't have the same id
 
     user = models.OneToOneField(AUTH_USER_MODEL, unique=True, max_length=30,
-                                primary_key=True, db_index=True)
+                                primary_key=True, db_index=True, on_delete=models.CASCADE)
 
     # User display name the user
     # add db_index for optimze search for all display_name
@@ -59,7 +59,7 @@ class Account(CachingMixin, models.Model):
     last_action = models.DateTimeField(default=now, db_index=True)
 
     # Location attributes, foreignkey is many-to-one relationship
-    location = models.ForeignKey(Location, blank=True, null=True, related_name="location")
+    location = models.ForeignKey(Location, blank=True, null=True, related_name="location",on_delete=models.CASCADE)
 
     is_sharing_location = models.BooleanField(default=False)
 
