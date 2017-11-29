@@ -60,8 +60,6 @@ class UserView(viewsets.ModelViewSet):
 		_current_user.last_action = now()
 		_current_user.save()
 
-		print("testing", _current_user.location)
-
 		# get the account object, with the primary key is None
 		# from the models.py
 		_user = get_object_or_404(Account, pk=pk)

@@ -37,7 +37,8 @@ class PostView(viewsets.ModelViewSet):
         pass
 
     def create(self, request, *args, **kwargs):
-        _current_user = request.user.userinfo
+
+        _current_user = self.request.user.account
         _current_user.last_action_at = now()
         _current_user.save()
 
@@ -47,9 +48,12 @@ class PostView(viewsets.ModelViewSet):
 
 
             post = Post(author=_current_user, title=title, text_content=text_content)
+            post.save()
+
             return Response(PostSerializer(post, many=False, context={"request": request}).data, status=200)
         except KeyError:
             return Response({"error": "empty field"}, status=200)
+
 
     def retrieve(self, request, pk=None, *args, **kwargs):
         pass

@@ -67,7 +67,6 @@ class AccountSerializer(serializers.ModelSerializer):
 
     # get location from location Object
     def get_location_by_point(self, info):
-        print(info)
         return LocationSerializer(info.location, many=False).data
 
 
