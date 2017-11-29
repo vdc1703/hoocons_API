@@ -63,9 +63,7 @@ class UserView(viewsets.ModelViewSet):
 		# get the account object, with the primary key is None
 		# from the models.py
 		_user = get_object_or_404(Account, pk=pk)
-
-
-
+		#print(_user)
 		# to make sure the user who view the profile is not in block list and the user have to be active
 		if self.is_blocked(_current_user, _user):
 			return Response({"message": "user does not exists or inactive"}, status=status.HTTP_404_NOT_FOUND)

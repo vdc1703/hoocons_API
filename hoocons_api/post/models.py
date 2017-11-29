@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 # This Post use to store post information from a post
-class Post(models.Model):
+class Post(CachingMixin, models.Model):
 	author = models.ForeignKey(Account, db_index=True, blank=False, related_name="author_account")
 	created_at = models.DateTimeField(default=now, db_index=True)
 

@@ -15,4 +15,5 @@ class PostSerializer(serializers.ModelSerializer):
 	# return format in Json with author, title, text_content
 	class Meta:
 		model = Post
-		fields = ('author', "title", "text_content")
+		#fields = ('author', "title", "text_content")
+		fields = "__all__"
